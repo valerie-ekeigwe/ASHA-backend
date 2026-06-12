@@ -42,7 +42,7 @@ async def upload_csv(file: UploadFile = File(...)):
     """Parse a bank CSV and categorize transactions with Gemini."""
     try:
         contents = await file.read()
-        df = pd.read_csv(io.StringIO(contents.decode("utf-8")))
+        df = pd.read_csv(io.StringIO(contents.decode("utf-8")), skiprows=1)
 
         # Normalize column names — handle different bank formats
         df.columns = [c.strip().lower() for c in df.columns]
@@ -87,7 +87,7 @@ async def analyze(file: UploadFile = File(...)):
     """Full ASHA pipeline — upload CSV, generate insight, judge it, save it."""
     try:
         contents = await file.read()
-        df = pd.read_csv(io.StringIO(contents.decode("utf-8")))
+        df = pd.read_csv(io.StringIO(contents.decode("utf-8")), skiprows=1)
         df.columns = [c.strip().lower() for c in df.columns]
 
         date_col = next((c for c in df.columns if "date" in c), None)
