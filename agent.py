@@ -54,7 +54,7 @@ def categorize_transactions(transactions: list[dict]) -> list[dict]:
     ])
     
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-2.5-flash-lite",
         contents=f"""
         Categorize each transaction into one of these categories:
         Food, Transport, Subscriptions, Shopping, Utilities, Groceries, Entertainment, Other
@@ -111,7 +111,7 @@ def generate_insight(transactions: list[dict], past_bias_patterns: str = "") -> 
         """
     
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-2.5-flash-lite",
         contents=f"""
         You are ASHA, a personal spending advisor. Analyze this week's spending and give ONE insight.
         
@@ -154,7 +154,7 @@ def judge_insight(insight: dict) -> float:
     """Use Gemini as a judge to score the insight quality 1-10."""
     
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-2.5-flash-lite",
         contents=f"""
         You are an evaluator scoring a financial insight for quality.
         
@@ -215,7 +215,7 @@ def get_bias_patterns() -> str:
     
     # Use Gemini to summarize the failure patterns
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-2.5-flash-lite",
         contents=f"""
         These are financial insights the user IGNORED. 
         What patterns made them ineffective? Be brief and specific.
